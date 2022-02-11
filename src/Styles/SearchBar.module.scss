@@ -1,0 +1,32 @@
+.searchForm {
+    margin-top: 24px;
+    margin-left: 16px;
+    margin-right: 16px;
+
+    label:focus-visible {
+        outline: none;
+    }
+}
+
+.searchForm:focus-visible {
+    outline: none;
+}
+
+.searchLabel {
+    position: relative;
+}
+
+
+.searchInput {
+    height: 48px;
+    width: 100%;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
+    border: none;
+    border-radius: 5px;
+}
+
+.searchInput:focus-visible {
+    outline: none;
+}
