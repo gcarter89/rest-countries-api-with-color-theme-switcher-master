@@ -1,23 +1,38 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef, forwardRef, createRef } from 'react';
 import styles from '../Styles/Main.module.scss';
 import { Card } from './Card.js';
+import { countriesAlphaSort } from './Helpers/CountriesAlphaSort';
 import { SearchFilterContainer }  from './SearchFilterContainer.js'
 
 
 export function Main() {
 
-    //calling the api everytime I search is inefficient
-    //firstly, I think we need to trigger data pulling based on the region filter.
-
-
-
-
     const [region, setRegion] = useState('Filter by Region');
     const [countries, setCountries] = useState([]);
+    const [limit, setLimit] = useState(5);
+
+    const observer = createRef();
+
+    const lastCardRef = useCallback(node => {
+        if (observer.current) {
+            observer.current.disconnect();
+        }
+
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                setLimit(limit => limit + 5);
+            }
+        })
+
+        if (node) {
+            observer.current.observe(node);
+        }
+
+    },[observer])
 
     const fetchAll = useCallback( (
         async () => {
-            const countriesData = await fetch('https://restcountries.com/v2/all?fields=name,capital,population,region,flags');
+            const countriesData = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,population,region,flags');
             const countriesJSON = await countriesData.json();
             return await countriesJSON;
         }
@@ -26,7 +41,7 @@ export function Main() {
     
     const fetchRegion = useCallback( (
         async (region) => {
-            const regionData = await fetch(`https://restcountries.com/v2/region/${region}?fields=name,capital,population,region,flags`);
+            const regionData = await fetch(`https://restcountries.com/v3.1/region/${region}?fields=name,capital,population,region,flags`);
             const regionJSON = await regionData.json();
             return await regionJSON;
         }
@@ -38,7 +53,8 @@ export function Main() {
                 const resultData = async () => {
                     try {
                         const result = await fetchAll();
-                        setCountries(result)
+                        const sortedResult = await countriesAlphaSort(result);
+                        setCountries(sortedResult);
                     } catch(err) {
                         console.error(err); 
                     }
@@ -49,7 +65,8 @@ export function Main() {
             const resultData = async () => {
                 try {
                     const result = await fetchRegion(region);
-                    setCountries(result);
+                    const sortedResult = await countriesAlphaSort(result);
+                    setCountries(sortedResult);
                 } catch(err) {
                     console.error(err);
                 }
@@ -59,9 +76,9 @@ export function Main() {
         }
     }, [region, fetchAll, fetchRegion])
 
-    console.log(countries)
 
     function handleFilter(region) {
+        setLimit(5);
         setRegion(region)
     }
 
@@ -70,9 +87,13 @@ export function Main() {
         <main className={styles.main}>
             <SearchFilterContainer handleFilter={handleFilter} region={region} />
             {countries.map((country, i) => {
-                return (
-                    i <= 5 - 1 ? <Card key={i} country={country} /> : null
-                )
+                    if (i <= limit -1) {
+                        if (i === limit - 1) {
+                            return <Card ref={lastCardRef} key={i} country={country} />
+                        } else {
+                            return <Card key={i} country={country} />
+                        }
+                    }                
             })}
         </main>
     )
