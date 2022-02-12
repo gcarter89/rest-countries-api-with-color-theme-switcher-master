@@ -1,14 +1,14 @@
 import './App.scss';
-import { Header } from './Components/Header';
-import { SearchBar } from './Components/SearchBar';
+import { Header } from './Components/Header.js';
+import { Main }  from './Components/Main.js'
 
 function App() {
-  return (
-    <div className="App">
-        <Header/>
-        <SearchBar/>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Header/>
+            <Main />
+        </div>
+    );
 }
 
 export default App;
