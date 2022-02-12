@@ -1,14 +1,17 @@
-import { useCallback, useEffect, useState, useRef, forwardRef, createRef } from 'react';
-import styles from '../Styles/Main.module.scss';
-import { Card } from './Card.js';
-import { countriesAlphaSort } from './Helpers/CountriesAlphaSort';
+import { useCallback, useEffect, useState, createRef } from 'react';
+import styles from '../Styles/CountriesList.module.scss';
+import { CountriesListCard } from './CountriesListCard.js';
+import { countriesAlphaSort } from '../Helpers/CountriesAlphaSort';
 import { SearchFilterContainer }  from './SearchFilterContainer.js'
 
 
-export function Main() {
+export function CountriesList() {
 
     const [region, setRegion] = useState('Filter by Region');
     const [countries, setCountries] = useState([]);
+    const [results, setResults] = useState([]);
+    const [searchParam, setSearchParam] = useState('');
+
     const [limit, setLimit] = useState(5);
 
     const observer = createRef();
@@ -55,6 +58,7 @@ export function Main() {
                         const result = await fetchAll();
                         const sortedResult = await countriesAlphaSort(result);
                         setCountries(sortedResult);
+                        setResults(sortedResult);
                     } catch(err) {
                         console.error(err); 
                     }
@@ -67,6 +71,7 @@ export function Main() {
                     const result = await fetchRegion(region);
                     const sortedResult = await countriesAlphaSort(result);
                     setCountries(sortedResult);
+                    setResults(sortedResult);
                 } catch(err) {
                     console.error(err);
                 }
@@ -77,6 +82,24 @@ export function Main() {
     }, [region, fetchAll, fetchRegion])
 
 
+    useEffect(() => {
+        if (searchParam === '') {
+            setResults(countries);
+        } else {
+            const filteredResults = countries.filter(element => element.name.common.toLowerCase().startsWith(searchParam.toLowerCase()));
+            setResults(filteredResults);
+        }
+
+
+    },[countries, searchParam])
+
+    function handleQuery(event) {
+        event.preventDefault();
+        setLimit(5);
+        setSearchParam(event.target.value);
+        
+    }
+
     function handleFilter(region) {
         setLimit(5);
         setRegion(region)
@@ -85,13 +108,16 @@ export function Main() {
 
     return (
         <main className={styles.main}>
-            <SearchFilterContainer handleFilter={handleFilter} region={region} />
-            {countries.map((country, i) => {
+            <SearchFilterContainer handleFilter={handleFilter} handleQuery={handleQuery} region={region} />
+            {
+                results.length === 0 ? <h1>No results</h1> :
+                
+                results.map((country, i) => {
                     if (i <= limit -1) {
                         if (i === limit - 1) {
-                            return <Card ref={lastCardRef} key={i} country={country} />
+                            return <CountriesListCard ref={lastCardRef} key={i} country={country} />
                         } else {
-                            return <Card key={i} country={country} />
+                            return <CountriesListCard key={i} country={country} />
                         }
                     }                
             })}

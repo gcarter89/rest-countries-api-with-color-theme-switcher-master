@@ -1,12 +1,15 @@
 import './App.scss';
 import { Header } from './Components/Header.js';
-import { Main }  from './Components/Main.js'
+import { CountriesList }  from './Components/CountriesList.js'
+import { CountryDetail } from './Components/CountryDetail.js';
+
 
 function App() {
     return (
         <div className="App">
             <Header/>
-            <Main />
+            <CountryDetail />
+            <CountriesList />
         </div>
     );
 }

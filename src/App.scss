@@ -5,6 +5,10 @@
     padding: 0;
 }
 
+.App {
+    background-color: #F2F2F2;
+}
+
 h1 {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 14px;
@@ -72,4 +76,8 @@ button {
 
 .fa-chevron-down {
     font-size: 10px;
+}
+
+.fa-arrow-left {
+    margin-right: 8px;
 }
