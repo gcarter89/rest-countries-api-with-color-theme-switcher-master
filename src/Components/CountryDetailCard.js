@@ -1,7 +1,7 @@
 import { BackButton } from './BackButton';
 import styles from '../Styles/CountryDetailCard.module.scss';
 
-export function CountryDetailCard({ country, closeDetail, borderCountries }) {
+export function CountryDetailCard({ country, closeDetail, borderCountries, handleSelectedBorder }) {
 
     return (
         <div className={styles.detailContainer}>
@@ -18,7 +18,6 @@ export function CountryDetailCard({ country, closeDetail, borderCountries }) {
                             <p><b>Region: </b>{country[0].region}</p>
                             <p><b>Sub Region: </b>{country[0].subregion}</p>
                             <p><b>Capital: </b>{country[0].capital}</p>
-
                         </section>
                         <section className={styles.detailMiddle}>
                             <p><b>Top Level Domain: </b>{country[0].topLevelDomain}</p>
@@ -49,14 +48,11 @@ export function CountryDetailCard({ country, closeDetail, borderCountries }) {
                                     !borderCountries ? <button className={styles.borderCountryButton}>No borders</button> : 
 
                                     borderCountries.map(country => {
-                                    return (
-                                        <button key={country.name.common} className={styles.borderCountryButton}>{country.name.common}</button>
-                                    )
-                                })
+                                        return (
+                                            <button onClick={(e) => handleSelectedBorder(e, country)} key={country.name.common} className={styles.borderCountryButton}>{country.name.common}</button>
+                                        )
+                                    })
                                 }
-
-
-
                             </div>
                         </section>
 

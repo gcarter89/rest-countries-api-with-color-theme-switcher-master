@@ -26,7 +26,7 @@ function App() {
         <div className="App">
             <Header/>
             {
-                openDetail ? <CountryDetail selectedCountry={selectedCountry} closeDetail={closeDetail} /> : <CountriesList handleSelectedCountry={handleSelectedCountry} />
+                openDetail ? <CountryDetail handleSelectedBorder={handleSelectedCountry} selectedCountry={selectedCountry} closeDetail={closeDetail} /> : <CountriesList handleSelectedCountry={handleSelectedCountry} />
             }
         </div>
     );

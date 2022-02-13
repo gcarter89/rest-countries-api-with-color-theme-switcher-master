@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import styles from '../Styles/CountryDetail.module.scss';
 import { CountryDetailCard } from './CountryDetailCard';
 
-export function CountryDetail({ closeDetail, selectedCountry }) {
+export function CountryDetail({ closeDetail, selectedCountry, handleSelectedBorder }) {
 
 
     const [results, setResults] = useState([]);
@@ -62,7 +62,7 @@ export function CountryDetail({ closeDetail, selectedCountry }) {
     return (
         <main className={styles.detail}>
         {
-            results.length === 0 ? <h1>Not loading</h1> : <CountryDetailCard borderCountries={borderResults} country={results} closeDetail={closeDetail} />
+            results.length === 0 ? <h1>Not loading</h1> : <CountryDetailCard handleSelectedBorder={handleSelectedBorder} borderCountries={borderResults} country={results} closeDetail={closeDetail} />
 
         }
         </main>
