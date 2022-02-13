@@ -2,3 +2,18 @@
     padding-top: 24px;
     padding-bottom: 66px;
 }
+
+.cardsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+@media screen and (max-width: 1439px) {
+    .cardsContainer {
+        margin-left: unset;
+        margin-right: unset;
+    }
+}

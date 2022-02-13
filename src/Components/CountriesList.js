@@ -109,18 +109,21 @@ export function CountriesList({handleSelectedCountry}) {
     return (
         <main className={styles.main}>
             <SearchFilterContainer handleFilter={handleFilter} handleQuery={handleQuery} region={region} />
-            {
-                results.length === 0 ? <h1>No results</h1> :
-                
-                results.map((country, i) => {
-                    if (i <= limit -1) {
-                        if (i === limit - 1) {
-                            return <CountriesListCard ref={lastCardRef} key={i} country={country} handleSelectedCountry={handleSelectedCountry} />
-                        } else {
-                            return <CountriesListCard key={i} country={country} handleSelectedCountry={handleSelectedCountry} />
-                        }
-                    }                
-            })}
+            <section className={styles.cardsContainer}>
+                {
+                    results.length === 0 ? <h1>No results</h1> :
+                    
+                    results.map((country, i) => {
+                        if (i <= limit -1) {
+                            if (i === limit - 1) {
+                                return <CountriesListCard ref={lastCardRef} key={i} country={country} handleSelectedCountry={handleSelectedCountry} />
+                            } else {
+                                return <CountriesListCard key={i} country={country} handleSelectedCountry={handleSelectedCountry} />
+                            }
+                        }                
+                })}
+            </section>
+
         </main>
     )
 }
