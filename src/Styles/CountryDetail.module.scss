@@ -1,20 +1,11 @@
 .detail {
     height: 100%;
     padding-top: 40px;
+    padding-bottom: 40px;
     background-color: #F2F2F2;
     z-index: 1;
-}
 
-.imageContainer {
-    margin-top: 64px;
-    margin-left: auto;
-    margin-right: auto;
-    height: 229px;
-    width: 320px;
-}
-
-.imagePlaceholder {
-    height: 100%;
-    width: 100%;
-    background-color: grey;
+    p {
+        line-height: 32px;
+    }
 }

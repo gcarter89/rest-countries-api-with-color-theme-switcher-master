@@ -5,7 +5,7 @@ import { countriesAlphaSort } from '../Helpers/CountriesAlphaSort';
 import { SearchFilterContainer }  from './SearchFilterContainer.js'
 
 
-export function CountriesList() {
+export function CountriesList({handleSelectedCountry}) {
 
     const [region, setRegion] = useState('Filter by Region');
     const [countries, setCountries] = useState([]);
@@ -115,9 +115,9 @@ export function CountriesList() {
                 results.map((country, i) => {
                     if (i <= limit -1) {
                         if (i === limit - 1) {
-                            return <CountriesListCard ref={lastCardRef} key={i} country={country} />
+                            return <CountriesListCard ref={lastCardRef} key={i} country={country} handleSelectedCountry={handleSelectedCountry} />
                         } else {
-                            return <CountriesListCard key={i} country={country} />
+                            return <CountriesListCard key={i} country={country} handleSelectedCountry={handleSelectedCountry} />
                         }
                     }                
             })}
