@@ -22,12 +22,18 @@ $magnifying-glass-dark-color: #FFFFFF;
     min-height: 100vh;
     background-color: $bg-light-color;
     color: $text-light-color;
+    transition-duration: .5s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
 }
 
 .AppDark {
     min-height: 100vh;
     background-color: $bg-dark-color;
     color: $text-dark-color;
+    transition-duration: .5s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
 }
 
 h1 {

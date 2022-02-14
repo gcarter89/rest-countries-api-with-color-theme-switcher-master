@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { ThemeContext } from '../App';
 
 export function CountryDetailCard({ country, closeDetail, borderCountries, handleSelectedBorder }) {
-
+    console.log(country);
     let currencyArray = []
     let languageArray = []
     let nativeNameArray = [];
@@ -35,11 +35,11 @@ export function CountryDetailCard({ country, closeDetail, borderCountries, handl
                 <div className={styles.detailCopy}>
                     <h3>{country[0].name.common}</h3>
                     <section className={styles.detailTop}>
-                        <p><b>Native Name: </b>{nativeNameArray[0].common}</p>
+                        <p><b>Native Name: </b>{nativeNameArray.length === 0 ? 'N/A' : nativeNameArray[0].common}</p>
                         <p><b>Population: </b>{country[0].population.toLocaleString()}</p>
-                        <p><b>Region: </b>{country[0].region}</p>
-                        <p><b>Sub Region: </b>{country[0].subregion}</p>
-                        <p><b>Capital: </b>{country[0].capital}</p>
+                        <p><b>Region: </b>{!country[0].region ? 'N/A' : country[0].region}</p>
+                        <p><b>Sub Region: </b>{!country[0].subregion ? 'N/A' : country[0].subregion}</p>
+                        <p><b>Capital: </b>{!country[0].capital ? 'N/A' : country[0].capital}</p>
                     </section>
                     <section className={styles.detailMiddle}>
                         <p><b>Top Level Domain: </b>{!country[0].tld ? 'No TLD' : country[0].tld[0]}</p>
