@@ -19,11 +19,13 @@ $magnifying-glass-dark-color: #FFFFFF;
 
 
 .AppLight {
+    min-height: 100vh;
     background-color: $bg-light-color;
     color: $text-light-color;
 }
 
 .AppDark {
+    min-height: 100vh;
     background-color: $bg-dark-color;
     color: $text-dark-color;
 }
