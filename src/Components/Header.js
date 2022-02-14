@@ -11,8 +11,6 @@ export function Header() {
     library.add([faMoon, faSun]);
     const {darkMode, setDarkMode} = useContext(ThemeContext);
 
-    console.log(darkMode);
-
     function handleDarkMode(event) {
         event.preventDefault();
         setDarkMode(!darkMode);
@@ -26,9 +24,6 @@ export function Header() {
                     <button className={styles.toggleButton} onClick={(e) => handleDarkMode(e)}><h2><span><FontAwesomeIcon id={'poop'} icon="fa-solid fa-sun" /></span>Light Mode</h2></button> :
                     <button className={styles.toggleButton} onClick={(e) => handleDarkMode(e)}><h2><span><FontAwesomeIcon icon="fa-regular fa-moon" /></span>Dark Mode</h2></button>
             }
-
-
-            
         </header>
     )
 }

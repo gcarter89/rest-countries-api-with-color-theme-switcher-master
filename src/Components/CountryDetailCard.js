@@ -5,7 +5,6 @@ import { ThemeContext } from '../App';
 
 export function CountryDetailCard({ country, closeDetail, borderCountries, handleSelectedBorder }) {
 
-    console.log(country)
     let currencyArray = []
     let languageArray = []
     let nativeNameArray = [];
@@ -31,7 +30,7 @@ export function CountryDetailCard({ country, closeDetail, borderCountries, handl
             <BackButton closeDetail={closeDetail} />
             <div className={styles.detailsCard}>
                 <div className={styles.imageContainer}>
-                     <img src={country[0].flags.png} alt={`flag of ${country[0].name}`} />
+                     <img src={country[0].flags.svg} alt={`flag of ${country[0].name}`} />
                 </div>
                 <div className={styles.detailCopy}>
                     <h3>{country[0].name.common}</h3>

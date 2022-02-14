@@ -8,14 +8,9 @@ import { createContext, useState } from 'react';
 export const ThemeContext = createContext();
 
 function App() {
-    
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [openDetail, setOpenDetail] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
-
-    
-
-
 
     function handleSelectedCountry(event, country) {
         event.preventDefault();
@@ -44,7 +39,6 @@ function App() {
             }
         </div>
         </ThemeContext.Provider>
-
     );
 }
 

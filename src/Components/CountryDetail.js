@@ -62,7 +62,9 @@ export function CountryDetail({ closeDetail, selectedCountry, handleSelectedBord
     return (
         <main className={styles.detail}>
         {
-            results.length === 0 ? <h1>Not loading</h1> : <CountryDetailCard handleSelectedBorder={handleSelectedBorder} borderCountries={borderResults} country={results} closeDetail={closeDetail} />
+            results === undefined ? <h1>An error has occurred! Reload and try again!</h1> :
+            results.length === 0 ? <h1>Loading...</h1> : 
+                <CountryDetailCard handleSelectedBorder={handleSelectedBorder} borderCountries={borderResults} country={results} closeDetail={closeDetail} />
 
         }
         </main>
