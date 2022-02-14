@@ -3,6 +3,8 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from '../App';
 
 export function Filter({ handleFilter, region }) {
 
@@ -11,6 +13,8 @@ export function Filter({ handleFilter, region }) {
     library.add(faChevronDown)
 
     const [isOpen, setIsOpen] = useState(false);
+
+    const { darkMode } = useContext(ThemeContext);
 
     function handleDropdownClick(event) {
         event.preventDefault();
@@ -26,16 +30,16 @@ export function Filter({ handleFilter, region }) {
 
     return (
         <div className={styles.filterArea}>
-            <button className={styles.filterDropdownButton} onClick={(e) => handleDropdownClick(e)}>
+            <button className={darkMode ? `${styles.filterDropdownButton} ${styles.darkTheme}` : `${styles.filterDropdownButton} ${styles.lightTheme}`} onClick={(e) => handleDropdownClick(e)}>
                 {region}
                 <FontAwesomeIcon icon="fa-solid fa-chevron-down" />
             </button>
             
             {isOpen ? 
-                <div className={styles.filterSelectArea}>
+                <div className={darkMode ? `${styles.filterSelectArea} ${styles.darkTheme}`: `${styles.filterSelectArea} ${styles.lightTheme}`}>
                     {regionsArray.map(regionElem => {
                         return (
-                            <button onClick={(e) => handleSelectClick(e, regionElem)} key={regionElem} className={styles.filterSelectButton}>{regionElem}</button>
+                            <button onClick={(e) => handleSelectClick(e, regionElem)} key={regionElem} className={darkMode ? `${styles.filterSelectButton} ${styles.darkTheme}`: `${styles.filterSelectButton} ${styles.lightTheme}`}>{regionElem}</button>
                         )
                     })}
                 </div> : null

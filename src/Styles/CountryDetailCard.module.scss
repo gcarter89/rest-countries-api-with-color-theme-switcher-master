@@ -1,3 +1,9 @@
+$borderbutton-bg-light: #FFFFFF;
+$borderbutton-text-light:#111517;
+
+$borderbutton-bg-dark: #2B3844;
+$borderbutton-text-dark: #FFFFFF;
+
 .detailContainer {
     margin-left: 80px;
     margin-right: 80px;
@@ -69,20 +75,28 @@
     justify-content: center;
     padding-left: 6px;
     padding-right: 6px;
-    
     padding-top: 6px;
     padding-bottom: 6px;
     height: 28px;
     min-width: 96px;
     width: fit-content;
-    background: #FFFFFF;
+    // background: #FFFFFF;
     box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.104931);
     border-radius: 2px;
     font-family: Nunito Sans;
     font-weight: 300;
     font-size: 12px;
     line-height: 16px;
-    color: #111517;
+}
+
+.lightTheme {
+    background-color: $borderbutton-bg-light;
+    color: $borderbutton-text-light;
+}
+
+.darkTheme {
+    background-color: $borderbutton-bg-dark;
+    color: $borderbutton-text-dark;
 }
 
 @media screen and (max-width: 1439px) {

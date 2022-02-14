@@ -1,10 +1,14 @@
-import { forwardRef } from 'react'
-import styles from '../Styles/CountriesListCard.module.scss'
+import { forwardRef, useContext } from 'react'
+import styles from '../Styles/CountriesListCard.module.scss';
+import { ThemeContext } from '../App';
 
 
 export const CountriesListCard = forwardRef(({country, handleSelectedCountry}, ref) => {
+    const { darkMode } = useContext(ThemeContext);
+
+
     return (
-        <div onClick={(e) => handleSelectedCountry(e, country)} ref={ref} className={styles.card}>
+        <div onClick={(e) => handleSelectedCountry(e, country)} ref={ref} className={darkMode ? `${styles.card} ${styles.darkTheme}` : `${styles.card} ${styles.lightTheme}` }>
             <div className={styles.imageContainer}>
                 <img src={country.flags.png} alt={`Flag of ${country.name}`}/>
             </div>

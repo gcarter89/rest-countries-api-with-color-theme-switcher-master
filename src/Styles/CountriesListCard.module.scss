@@ -1,10 +1,13 @@
+$card-bg-light: #FFFFFF;
+$card-bg-dark: #2B3844;
+
 .card {
     height: 336px;
     width: 264px;
     margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
-    background: #FFFFFF;
+    // background: #FFFFFF;
     box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.0294384);
     border-radius: 5px;
     cursor: pointer;
@@ -22,6 +25,14 @@
     p:first-of-type {
         margin-top: 0
     }
+}
+
+.lightTheme {
+    background-color: $card-bg-light;
+}
+
+.darkTheme {
+    background-color: $card-bg-dark;
 }
 
 .imageContainer {

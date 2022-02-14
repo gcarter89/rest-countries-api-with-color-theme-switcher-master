@@ -1,8 +1,11 @@
 import { BackButton } from './BackButton';
 import styles from '../Styles/CountryDetailCard.module.scss';
+import { useContext } from 'react';
+import { ThemeContext } from '../App';
 
 export function CountryDetailCard({ country, closeDetail, borderCountries, handleSelectedBorder }) {
 
+    console.log(country)
     let currencyArray = []
     let languageArray = []
     let nativeNameArray = [];
@@ -18,6 +21,8 @@ export function CountryDetailCard({ country, closeDetail, borderCountries, handl
     for (let key in country[0].name.nativeName) {
         nativeNameArray.push(country[0].name.nativeName[key])
     }
+
+    const { darkMode } = useContext(ThemeContext);
 
 
 
@@ -38,7 +43,7 @@ export function CountryDetailCard({ country, closeDetail, borderCountries, handl
                         <p><b>Capital: </b>{country[0].capital}</p>
                     </section>
                     <section className={styles.detailMiddle}>
-                        <p><b>Top Level Domain: </b>{country[0].tld[0]}</p>
+                        <p><b>Top Level Domain: </b>{!country[0].tld ? 'No TLD' : country[0].tld[0]}</p>
                         <p><b>Currencies: </b>
                             {
                                 currencyArray.length === 0 ? <span>No specified currency</span>:
@@ -69,10 +74,10 @@ export function CountryDetailCard({ country, closeDetail, borderCountries, handl
                         <h4 className={styles.borderCountriesTitle}>Border Countries:</h4>
                         <div className={styles.borderCountriesContainer}>
                             {  
-                                !borderCountries ? <button className={styles.borderCountryButton}>No borders</button> : 
+                                !borderCountries ? <button className={darkMode ? `${styles.borderCountryButton} ${styles.darkTheme}` : `${styles.borderCountryButton} ${styles.lightTheme}`}>No borders</button> : 
                                     borderCountries.map(country => {
                                         return (
-                                            <button onClick={(e) => handleSelectedBorder(e, country)} key={country.name.common} className={styles.borderCountryButton}>{country.name.common}</button>
+                                            <button onClick={(e) => handleSelectedBorder(e, country)} key={country.name.common} className={darkMode ? `${styles.borderCountryButton} ${styles.darkTheme}` : `${styles.borderCountryButton} ${styles.lightTheme}`}>{country.name.common}</button>
                                         )
                                     })
                             }

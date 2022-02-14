@@ -1,3 +1,6 @@
+$search-bg-light: #FFFFFF;
+$search-bg-dark: #2B3844;
+
 .searchForm {
     margin-left: 80px;
     margin-right: unset;
@@ -19,7 +22,7 @@
 .searchInput {
     height: 56px;
     width: 480px;
-    background: #FFFFFF;
+    
     box-sizing: border-box;
     box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
     border: none;
@@ -28,6 +31,14 @@
 
 .searchInput:focus-visible {
     outline: none;
+}
+
+.lightTheme {
+    background-color: $search-bg-light;
+}
+
+.darkTheme {
+    background-color: $search-bg-dark;
 }
 
 

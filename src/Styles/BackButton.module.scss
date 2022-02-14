@@ -1,13 +1,27 @@
+$backbutton-bg-light: #FFFFFF;
+$backbutton-text-light: #111517;
+
+$backbutton-bg-dark: #2B3844;
+$backbutton-text-dark: #FFFFFF;
+
 .button {
-    background: #FFFFFF;
     box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.293139);
     border-radius: 2px;
     font-family: Nunito Sans;
     font-weight: 300;
     font-size: 14px;
     line-height: 20px;
-    color: #111517;
     padding: 6px 24px;
     margin-left: auto;
     cursor: pointer;
+}
+
+.lightTheme {
+    background-color: $backbutton-bg-light;
+    color: $backbutton-text-light;
+}
+
+.darkTheme {
+    background-color: $backbutton-bg-dark;
+    color: $backbutton-text-dark;
 }

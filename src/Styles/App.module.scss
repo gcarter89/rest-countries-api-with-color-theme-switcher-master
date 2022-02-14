@@ -1,12 +1,10 @@
 .appDetail {
-    background-color: #F2F2F2;
     min-height: 100vh;
     overflow: hidden;
 }
 
 @media screen and (max-width: 1439px) {
     .appDetail {
-        background-color: #F2F2F2;
         overflow: unset;
         min-height: unset;
     }
