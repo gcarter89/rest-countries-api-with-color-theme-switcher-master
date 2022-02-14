@@ -8,6 +8,7 @@ export function CountryDetail({ closeDetail, selectedCountry, handleSelectedBord
     const [results, setResults] = useState([]);
     const [borderCountries, setBorderCountries] = useState(null);
     const [borderResults, setBorderResults] = useState([]);
+    const [isError, setIsError] = useState(false);
 
     const fetchSelectedCountry = useCallback( (
         async () => {
@@ -21,6 +22,9 @@ export function CountryDetail({ closeDetail, selectedCountry, handleSelectedBord
         async () => {
             if (borderCountries) {
                 const borderCountriesData = await fetch(`https://restcountries.com/v3.1/alpha?codes=${borderCountries}`);
+                if (!borderCountriesData.ok) {
+                    setIsError(true);
+                }
                 const borderCountriesJSON = await borderCountriesData.json();
                 return borderCountriesJSON;
             }
@@ -58,11 +62,15 @@ export function CountryDetail({ closeDetail, selectedCountry, handleSelectedBord
 
     }, [fetchBorderCountries])
 
+    if (results === undefined) {
+        setIsError(true);
+    }
+
 
     return (
         <main className={styles.detail}>
         {
-            results === undefined ? <h1>An error has occurred! Reload and try again!</h1> :
+            isError ? <h1>An error has occurred: Bad request. Reload and try again!</h1> :
             results.length === 0 ? <h1>Loading...</h1> : 
                 <CountryDetailCard handleSelectedBorder={handleSelectedBorder} borderCountries={borderResults} country={results} closeDetail={closeDetail} />
 
