@@ -1,11 +1,38 @@
+$header-bg-light-color: #FFFFFF;
+$header-bg-dark-color: #2B3844;
+
+$header-text-light-color: #2B3844;
+$header-text-dark-color: #FFFFFF;
+
 .header {
     display: flex;
     height: 80px;
     padding: 0px 80px;
     justify-content: space-between;
     align-items: center;
-    background: #FFFFFF;
+    // background-color: $header-bg-light-color;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0562443);
+}
+
+
+
+.headerLight {
+    background-color: $header-bg-light-color;
+    span {
+        color: $header-text-light-color;
+    }
+}
+
+.headerDark {
+    background-color: $header-bg-dark-color;
+    color: $header-text-dark-color;
+    span {
+        color: $header-text-dark-color;
+    }
+    h2 {
+        color: $header-text-dark-color;
+    }
+
 }
 
 .toggleButton {

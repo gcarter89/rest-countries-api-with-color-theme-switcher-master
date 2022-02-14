@@ -31,7 +31,7 @@ function App() {
 
     return (
         <ThemeContext.Provider value={{darkMode, setDarkMode}}>
-            <div className={openDetail ? styles.appDetail : 'App'}>
+            <div className={openDetail ? styles.appDetail : darkMode ? 'AppDark' : 'AppLight' }>
             <Header />
             {
                 openDetail ? <CountryDetail handleSelectedBorder={handleSelectedCountry} selectedCountry={selectedCountry} closeDetail={closeDetail} /> : <CountriesList handleSelectedCountry={handleSelectedCountry} />

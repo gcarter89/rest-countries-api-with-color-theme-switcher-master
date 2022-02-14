@@ -19,11 +19,11 @@ export function Header() {
     }
     
     return (
-        <header className={styles.header}>
+        <header className={darkMode ? `${styles.header} ${styles.headerDark}` : `${styles.header} ${styles.headerLight}`}>
             <h1>Where in the world?</h1>
             {
                 darkMode ?
-                    <button className={styles.toggleButton} onClick={(e) => handleDarkMode(e)}><h2><span><FontAwesomeIcon icon="fa-solid fa-sun" /></span>Light Mode</h2></button> :
+                    <button className={styles.toggleButton} onClick={(e) => handleDarkMode(e)}><h2><span><FontAwesomeIcon id={'poop'} icon="fa-solid fa-sun" /></span>Light Mode</h2></button> :
                     <button className={styles.toggleButton} onClick={(e) => handleDarkMode(e)}><h2><span><FontAwesomeIcon icon="fa-regular fa-moon" /></span>Dark Mode</h2></button>
             }
 

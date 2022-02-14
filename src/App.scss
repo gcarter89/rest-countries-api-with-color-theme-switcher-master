@@ -9,16 +9,24 @@ $text-dark-color: #FFFFFF;
 $search-light-color: #C4C4C4;
 $search-dark-color: #FFFFFF;
 
+$magnifying-glass-light-color: #B2B2B2;
+$magnifying-glass-dark-color: #FFFFFF;
+
 * {
     margin: 0;
     padding: 0;
 }
 
 
-.App {
+.AppLight {
     background-color: $bg-light-color;
     color: $text-light-color;
-} 
+}
+
+.AppDark {
+    background-color: $bg-dark-color;
+    color: $text-dark-color;
+}
 
 h1 {
     font-family: 'Nunito Sans', sans-serif;
@@ -88,7 +96,7 @@ button {
     position: absolute;
     top: 3px;
     left: 32px;
-    color: #B2B2B2;
+    color: $magnifying-glass-light-color;
     height: 16px;
     width: 16px;
 }
