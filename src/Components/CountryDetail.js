@@ -11,7 +11,7 @@ export function CountryDetail({ closeDetail, selectedCountry, handleSelectedBord
 
     const fetchSelectedCountry = useCallback( (
         async () => {
-            const selectedCountryData = await fetch(`https://restcountries.com/v2/name/${selectedCountry}`);
+            const selectedCountryData = await fetch(`https://restcountries.com/v3.1/alpha/${selectedCountry}`);
             const selectedCountryJSON = await selectedCountryData.json();
             return selectedCountryJSON;
         }

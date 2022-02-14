@@ -1,13 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;800&display=swap');
 
+$bg-light-color: #F2F2F2;
+$bg-dark-color: #202C36;
+
+$text-light-color: #111517;
+$text-dark-color: #FFFFFF;
+
+$search-light-color: #C4C4C4;
+$search-dark-color: #FFFFFF;
+
 * {
     margin: 0;
     padding: 0;
 }
 
+
 .App {
-    background-color: #F2F2F2;
-}
+    background-color: $bg-light-color;
+    color: $text-light-color;
+} 
 
 h1 {
     font-family: 'Nunito Sans', sans-serif;
@@ -27,9 +38,8 @@ h3 {
     font-family: Nunito Sans;
     font-style: normal;
     font-weight: 800;
-    font-size: 18px;
-    line-height: 26px;
-    color: #111517;
+    font-size: 32px;
+    line-height: 44px;
 }
 
 h4 {
@@ -38,7 +48,6 @@ h4 {
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
-    color: #111517;
 }
 
 p {
@@ -47,7 +56,6 @@ p {
     font-weight: 300;
     font-size: 14px;
     line-height: 16px;
-    color: #111517;
 }
 
 b {
@@ -59,8 +67,12 @@ input[type="text" i] {
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
-    color: #C4C4C4;
+    color: $search-light-color;
     padding-left: 74px;
+}
+
+::placeholder {
+    color: $search-light-color;
 }
 
 button {
@@ -68,6 +80,8 @@ button {
     border: none;
     background-color: unset;
 }
+
+
 
 
 .fa-magnifying-glass {
@@ -80,6 +94,10 @@ button {
 }
 
 .fa-moon {
+    margin-right: 8px;
+}
+
+.fa-sun {
     margin-right: 8px;
 }
 
@@ -102,6 +120,11 @@ button {
     h2 {
         font-size: 12px;
         line-height: 16.37px;
+    }
+
+    h3 {
+        font-size: 18px;
+        line-height: 26px;
     }
 
     input[type="text" i] {

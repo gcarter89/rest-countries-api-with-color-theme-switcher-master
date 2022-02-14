@@ -35,7 +35,7 @@ export function CountriesList({handleSelectedCountry}) {
 
     const fetchAll = useCallback( (
         async () => {
-            const countriesData = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,population,region,flags');
+            const countriesData = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,population,region,flags,cca3');
             const countriesJSON = await countriesData.json();
             return await countriesJSON;
         }
@@ -114,13 +114,15 @@ export function CountriesList({handleSelectedCountry}) {
                     results.length === 0 ? <h1>No results</h1> :
                     
                     results.map((country, i) => {
-                        if (i <= limit -1) {
+                        if (i <= limit - 1) {
                             if (i === limit - 1) {
                                 return <CountriesListCard ref={lastCardRef} key={i} country={country} handleSelectedCountry={handleSelectedCountry} />
                             } else {
                                 return <CountriesListCard key={i} country={country} handleSelectedCountry={handleSelectedCountry} />
                             }
-                        }                
+                        } else {
+                            return null;
+                        }           
                 })}
             </section>
 
