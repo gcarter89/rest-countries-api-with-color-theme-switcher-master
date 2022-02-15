@@ -8,7 +8,7 @@ import { ThemeContext } from '../App';
 
 export function Filter({ handleFilter, region }) {
 
-    const regionsArray = ['Africa', 'America', 'Asia', 'Europe', 'Oceania'];
+    const regionsArray = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 
     library.add(faChevronDown)
 

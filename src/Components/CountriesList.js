@@ -33,6 +33,8 @@ export function CountriesList({handleSelectedCountry}) {
 
     },[observer])
 
+    //refactor this... target: 1 single API call for the application
+
     const fetchAll = useCallback( (
         async () => {
             const countriesData = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,population,region,flags,cca3');
@@ -43,12 +45,26 @@ export function CountriesList({handleSelectedCountry}) {
 
     
     const fetchRegion = useCallback( (
-        async (region) => {
-            const regionData = await fetch(`https://restcountries.com/v3.1/region/${region}?fields=name,capital,population,region,flags`);
-            const regionJSON = await regionData.json();
-            return await regionJSON;
+        (region, countryList) => {
+            const regionData = countryList.filter(country => {
+                return (country.region === region);
+            })
+            // const regionData = await fetch(`https://restcountries.com/v3.1/region/${region}?fields=name,capital,population,region,flags`);
+            // const regionJSON = await regionData.json();
+            // return await regionJSON;
+            return regionData;
         }
     ), [])
+
+    useEffect(() => {
+        if (region !== 'Filter by Region') {
+            const result = fetchRegion(region, countries);
+            console.log(result);
+            setResults(result);
+        }
+    },[fetchRegion, region])
+
+    // fetchRegion(region, countries);
 
     useEffect(() => {
 
@@ -66,12 +82,12 @@ export function CountriesList({handleSelectedCountry}) {
 
                 resultData();
         } else {
-            const resultData = async () => {
+            const resultData = () => {
                 try {
-                    const result = await fetchRegion(region);
-                    const sortedResult = await countriesAlphaSort(result);
-                    setCountries(sortedResult);
-                    setResults(sortedResult);
+                    // const result = fetchRegion(region, countries);
+                    // const sortedResult = await countriesAlphaSort(result);
+                    // setCountries(result);
+                    // setResults(result);
                 } catch(err) {
                     console.error(err);
                 }
@@ -79,7 +95,7 @@ export function CountriesList({handleSelectedCountry}) {
 
             resultData();
         }
-    }, [region, fetchAll, fetchRegion])
+    }, [region, fetchAll])
 
 
     useEffect(() => {
