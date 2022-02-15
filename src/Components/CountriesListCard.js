@@ -2,10 +2,8 @@ import { forwardRef, useContext } from 'react'
 import styles from '../Styles/CountriesListCard.module.scss';
 import { ThemeContext } from '../App';
 
-
 export const CountriesListCard = forwardRef(({country, handleSelectedCountry}, ref) => {
     const { darkMode } = useContext(ThemeContext);
-
 
     return (
         <div onClick={(e) => handleSelectedCountry(e, country)} ref={ref} className={darkMode ? `${styles.card} ${styles.darkTheme}` : `${styles.card} ${styles.lightTheme}` }>
@@ -17,8 +15,7 @@ export const CountriesListCard = forwardRef(({country, handleSelectedCountry}, r
                 <p><b>Population: </b>{country.population.toLocaleString()}</p>
                 <p><b>Region: </b>{country.region}</p>
                 <p><b>Capital: </b>{
-                    country.capital.length === 0 ? 'N/A' : 
-                    
+                    !country.capital ? 'N/A' : 
                     country.capital.map((capital, index) => {
                         if (index === country.capital.length - 1 ) {
                             return <span key={index}>{capital}</span>
@@ -26,8 +23,8 @@ export const CountriesListCard = forwardRef(({country, handleSelectedCountry}, r
                             return (<span key={index}>{capital}, </span>)
                         }
                     })
-                    
-                    }</p>
+                }
+                </p>
             </div>
         </div>
     )

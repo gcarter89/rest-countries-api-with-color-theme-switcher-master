@@ -2,57 +2,50 @@ import { useCallback, useEffect, useState } from 'react';
 import styles from '../Styles/CountryDetail.module.scss';
 import { CountryDetailCard } from './CountryDetailCard';
 
-export function CountryDetail({ closeDetail, selectedCountry, handleSelectedBorder }) {
+export function CountryDetail({ closeDetail, countries, selectedCountry, handleSelectedBorder }) {
 
-
-    const [results, setResults] = useState([]);
+    const [selectedResult, setSelectedResult] = useState([]);
     const [borderCountries, setBorderCountries] = useState(null);
     const [borderResults, setBorderResults] = useState([]);
-    const [isError, setIsError] = useState(false);
-
-    const fetchSelectedCountry = useCallback( (
-        async () => {
-            const selectedCountryData = await fetch(`https://restcountries.com/v3.1/alpha/${selectedCountry}`);
-            const selectedCountryJSON = await selectedCountryData.json();
-            return selectedCountryJSON;
-        }
-    ), [selectedCountry]);
 
     const fetchBorderCountries = useCallback( (
-        async () => {
+        () => {
             if (borderCountries) {
-                const borderCountriesData = await fetch(`https://restcountries.com/v3.1/alpha?codes=${borderCountries}`);
-                if (!borderCountriesData.ok) {
-                    setIsError(true);
-                }
-                const borderCountriesJSON = await borderCountriesData.json();
-                return borderCountriesJSON;
+
+                const borderResults = borderCountries.map((borderCountry) => {
+                    return (
+                        countries.filter(country => {
+                            return (country.cca3 === borderCountry);
+                        })
+                    )
+                })
+                return borderResults;
             }
         }
-    ),[borderCountries])
+    ),[borderCountries, countries])
 
     useEffect(() => {
-        const resultData = async () => {
+        const resultData = () => {
             try {
-                const result = await fetchSelectedCountry();
-                setResults(result);
+                const result = selectedCountry;
+                setSelectedResult(result);
 
                 if (!result[0].borders) {
                     setBorderCountries(null);
                 } else {
-                    setBorderCountries(result[0].borders.toString())
+                    setBorderCountries(result[0].borders);
                 }
             } catch(err) {
                 console.error(err)
             }
         }
         resultData()
-    }, [fetchSelectedCountry])
+    }, [selectedCountry])
 
     useEffect(() => {
-        const resultData = async() => {
+        const resultData = () => {
             try {
-                const result = await fetchBorderCountries();
+                const result = fetchBorderCountries();
                 setBorderResults(result);
             } catch(err) {
                 console.error(err);
@@ -62,18 +55,11 @@ export function CountryDetail({ closeDetail, selectedCountry, handleSelectedBord
 
     }, [fetchBorderCountries])
 
-    if (results === undefined) {
-        setIsError(true);
-    }
-
-
     return (
         <main className={styles.detail}>
         {
-            isError ? <h1>An error has occurred: Bad request. Reload and try again!</h1> :
-            results.length === 0 ? <h1>Loading...</h1> : 
-                <CountryDetailCard handleSelectedBorder={handleSelectedBorder} borderCountries={borderResults} country={results} closeDetail={closeDetail} />
-
+            selectedResult.length === 0 ? <h1>Loading...</h1> : 
+                <CountryDetailCard handleSelectedBorder={handleSelectedBorder} borderCountries={borderResults} country={selectedResult} closeDetail={closeDetail} />
         }
         </main>
     )

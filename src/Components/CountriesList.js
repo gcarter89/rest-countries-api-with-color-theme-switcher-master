@@ -5,13 +5,11 @@ import { countriesAlphaSort } from '../Helpers/CountriesAlphaSort';
 import { SearchFilterContainer }  from './SearchFilterContainer.js'
 
 
-export function CountriesList({handleSelectedCountry}) {
+export function CountriesList({handleSelectedCountry, countries, setCountries}) {
 
     const [region, setRegion] = useState('Filter by Region');
-    const [countries, setCountries] = useState([]);
-    const [results, setResults] = useState([]);
-    const [searchParam, setSearchParam] = useState('');
-
+    const [filteredCountries, setFilteredCountries] = useState([]);
+    const [results, setResults] = useState([...countries]);
     const [limit, setLimit] = useState(5);
 
     const observer = createRef();
@@ -35,24 +33,17 @@ export function CountriesList({handleSelectedCountry}) {
 
     const fetchAll = useCallback( (
         async () => {
-            const countriesData = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,population,region,flags,cca3');
+            const countriesData = await fetch('https://restcountries.com/v3.1/all');
+            // const countriesData = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,population,region,flags,cca3');
             const countriesJSON = await countriesData.json();
             return await countriesJSON;
         }
-    ), [])
+    ), [])    
 
-    
-    const fetchRegion = useCallback( (
-        async (region) => {
-            const regionData = await fetch(`https://restcountries.com/v3.1/region/${region}?fields=name,capital,population,region,flags`);
-            const regionJSON = await regionData.json();
-            return await regionJSON;
-        }
-    ), [])
 
     useEffect(() => {
-
-        if (region === 'Filter by Region') {
+        if (countries.length === 0) {
+            if (region === 'Filter by Region') {
                 const resultData = async () => {
                     try {
                         const result = await fetchAll();
@@ -63,48 +54,44 @@ export function CountriesList({handleSelectedCountry}) {
                         console.error(err); 
                     }
                 }
-
                 resultData();
-        } else {
-            const resultData = async () => {
-                try {
-                    const result = await fetchRegion(region);
-                    const sortedResult = await countriesAlphaSort(result);
-                    setCountries(sortedResult);
-                    setResults(sortedResult);
-                } catch(err) {
-                    console.error(err);
-                }
             }
-
-            resultData();
-        }
-    }, [region, fetchAll, fetchRegion])
-
-
-    useEffect(() => {
-        if (searchParam === '') {
-            setResults(countries);
-        } else {
-            const filteredResults = countries.filter(element => element.name.common.toLowerCase().startsWith(searchParam.toLowerCase()));
-            setResults(filteredResults);
         }
 
+    }, [region, fetchAll, setCountries, countries]
+    )
 
-    },[countries, searchParam])
 
     function handleQuery(event) {
         event.preventDefault();
         setLimit(5);
-        setSearchParam(event.target.value);
-        
+        const param = event.target.value;
+        if (param === '') {
+            if (filteredCountries.length === 0) {
+                setResults(countries);
+            } else {
+                setResults(filteredCountries);
+            }
+        } else {
+            if (filteredCountries.length === 0) {
+                const filteredResults = countries.filter(element => element.name.common.toLowerCase().startsWith(param.toLowerCase()));
+                setResults(filteredResults);
+            } else {
+                const filteredResults = filteredCountries.filter(element => element.name.common.toLowerCase().startsWith(param.toLowerCase()));
+                setResults(filteredResults);
+            }
+        }
     }
 
-    function handleFilter(region) {
+    function handleFilter(region, countryList = countries) {
         setLimit(5);
-        setRegion(region)
+        setRegion(region);
+        const filteredCountries = countryList.filter(country => {
+            return (country.region === region);
+        })
+        setFilteredCountries(filteredCountries);
+        setResults(filteredCountries);
     }
-
 
     return (
         <main className={styles.main}>
@@ -112,7 +99,6 @@ export function CountriesList({handleSelectedCountry}) {
             <section className={styles.cardsContainer}>
                 {
                     results.length === 0 ? <h1>No results</h1> :
-                    
                     results.map((country, i) => {
                         if (i <= limit - 1) {
                             if (i === limit - 1) {
@@ -123,7 +109,8 @@ export function CountriesList({handleSelectedCountry}) {
                         } else {
                             return null;
                         }           
-                })}
+                    })
+                }
             </section>
 
         </main>

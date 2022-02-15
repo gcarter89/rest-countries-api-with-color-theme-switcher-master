@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import { ThemeContext } from '../App';
 
 export function CountryDetailCard({ country, closeDetail, borderCountries, handleSelectedBorder }) {
-
     let currencyArray = []
     let languageArray = []
     let nativeNameArray = [];
@@ -83,7 +82,7 @@ export function CountryDetailCard({ country, closeDetail, borderCountries, handl
                                 !borderCountries ? <button className={darkMode ? `${styles.borderCountryButton} ${styles.darkTheme}` : `${styles.borderCountryButton} ${styles.lightTheme}`}>No borders</button> : 
                                     borderCountries.map(country => {
                                         return (
-                                            <button onClick={(e) => handleSelectedBorder(e, country)} key={country.name.common} className={darkMode ? `${styles.borderCountryButton} ${styles.darkTheme}` : `${styles.borderCountryButton} ${styles.lightTheme}`}>{country.name.common}</button>
+                                            <button onClick={(e) => handleSelectedBorder(e, country[0])} key={country[0].name.common} className={darkMode ? `${styles.borderCountryButton} ${styles.darkTheme}` : `${styles.borderCountryButton} ${styles.lightTheme}`}>{country[0].name.common}</button>
                                         )
                                     })
                             }
