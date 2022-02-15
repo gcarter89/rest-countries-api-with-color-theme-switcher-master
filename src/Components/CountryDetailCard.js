@@ -39,7 +39,14 @@ export function CountryDetailCard({ country, closeDetail, borderCountries, handl
                         <p><b>Population: </b>{country[0].population.toLocaleString()}</p>
                         <p><b>Region: </b>{!country[0].region ? 'N/A' : country[0].region}</p>
                         <p><b>Sub Region: </b>{!country[0].subregion ? 'N/A' : country[0].subregion}</p>
-                        <p><b>Capital: </b>{!country[0].capital ? 'N/A' : country[0].capital}</p>
+                        <p><b>Capital: </b>{!country[0].capital ? 'N/A' : 
+                            country[0].capital.map((capital, index) => {
+                                if (index === country[0].capital.length - 1) {
+                                    return <span key={index}>{capital}</span>
+                                } else {
+                                    return <span key={index}>{capital}, </span>
+                                }
+                            })}</p>
                     </section>
                     <section className={styles.detailMiddle}>
                         <p><b>Top Level Domain: </b>{!country[0].tld ? 'No TLD' : country[0].tld[0]}</p>
