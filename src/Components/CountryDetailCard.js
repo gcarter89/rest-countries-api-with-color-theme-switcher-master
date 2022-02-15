@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { ThemeContext } from '../App';
 
 export function CountryDetailCard({ country, closeDetail, borderCountries, handleSelectedBorder }) {
-    console.log(country);
+
     let currencyArray = []
     let languageArray = []
     let nativeNameArray = [];
