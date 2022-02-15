@@ -1,4 +1,4 @@
-$header-bg-light-color: #FFFFFF;
+$header-bg-light-color: rgb(255, 255, 255);
 $header-bg-dark-color: #2B3844;
 
 $header-text-light-color: #2B3844;
@@ -20,6 +20,9 @@ $header-text-dark-color: #FFFFFF;
     span {
         color: $header-text-light-color;
     }
+    button:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
 }
 
 .headerDark {
@@ -36,7 +39,11 @@ $header-text-dark-color: #FFFFFF;
 
 .toggleButton {
     cursor: pointer;
+    padding: 6px;
+    border-radius: 5px;
 }
+
+
 
 @media screen and (max-width: 1439px) {
     .header {
