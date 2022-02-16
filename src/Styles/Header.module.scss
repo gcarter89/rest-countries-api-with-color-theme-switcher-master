@@ -20,8 +20,11 @@ $header-text-dark-color: #FFFFFF;
     span {
         color: $header-text-light-color;
     }
+    .toggleButton {
+        color: $header-text-light-color;
+    }
     button:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(0,0,0,0.05);
     }
 }
 
@@ -31,10 +34,16 @@ $header-text-dark-color: #FFFFFF;
     span {
         color: $header-text-dark-color;
     }
-    h2 {
+    .toggleButton {
         color: $header-text-dark-color;
     }
+    button:hover {
+        background-color: rgba(255,255,255,0.05);
+    }
+}
 
+button {
+    transition: background-color 0.2s ease-in;
 }
 
 .toggleButton {
@@ -42,6 +51,7 @@ $header-text-dark-color: #FFFFFF;
     padding: 6px;
     border-radius: 5px;
 }
+
 
 
 

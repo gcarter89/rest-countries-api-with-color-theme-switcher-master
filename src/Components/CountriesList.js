@@ -10,7 +10,9 @@ export function CountriesList({handleSelectedCountry, countries, setCountries}) 
     const [region, setRegion] = useState('Filter by Region');
     const [filteredCountries, setFilteredCountries] = useState([]);
     const [results, setResults] = useState([...countries]);
+    const [param, setParam] = useState('');
     const [limit, setLimit] = useState(5);
+
 
     const observer = createRef();
 
@@ -63,10 +65,12 @@ export function CountriesList({handleSelectedCountry, countries, setCountries}) 
 
 
     function handleQuery(event) {
-        event.preventDefault();
+        // event.preventDefault();
         setLimit(5);
-        const param = event.target.value;
-        if (param === '') {
+        const searchParam = event.target.value;
+        setParam(event.target.value);
+
+        if (searchParam === '') {
             if (filteredCountries.length === 0) {
                 setResults(countries);
             } else {
@@ -74,10 +78,10 @@ export function CountriesList({handleSelectedCountry, countries, setCountries}) 
             }
         } else {
             if (filteredCountries.length === 0) {
-                const filteredResults = countries.filter(element => element.name.common.toLowerCase().startsWith(param.toLowerCase()));
+                const filteredResults = countries.filter(element => element.name.common.toLowerCase().startsWith(searchParam.toLowerCase()));
                 setResults(filteredResults);
             } else {
-                const filteredResults = filteredCountries.filter(element => element.name.common.toLowerCase().startsWith(param.toLowerCase()));
+                const filteredResults = filteredCountries.filter(element => element.name.common.toLowerCase().startsWith(searchParam.toLowerCase()));
                 setResults(filteredResults);
             }
         }
@@ -86,11 +90,31 @@ export function CountriesList({handleSelectedCountry, countries, setCountries}) 
     function handleFilter(region, countryList = countries) {
         setLimit(5);
         setRegion(region);
-        const filteredCountries = countryList.filter(country => {
-            return (country.region === region);
-        })
-        setFilteredCountries(filteredCountries);
-        setResults(filteredCountries);
+        if (region === 'All Countries') {
+            setFilteredCountries(countryList);
+
+            if (param === '') {
+                setResults(countryList);
+            } else {
+                const paramList = countryList.filter(element => element.name.common.toLowerCase().startsWith(param.toLowerCase()));
+                setResults(paramList);
+            }
+
+        } else {
+            const filteredCountries = countryList.filter(country => {
+                return (country.region === region);
+            });
+
+            setFilteredCountries(filteredCountries);
+
+            if (param === '') {
+                setResults(filteredCountries);
+            } else {
+                const paramList = filteredCountries.filter(element => element.name.common.toLowerCase().startsWith(param.toLowerCase()));
+                setResults(paramList);
+            }
+            
+        }
     }
 
     return (

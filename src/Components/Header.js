@@ -21,8 +21,8 @@ export function Header() {
             <h1>Where in the world?</h1>
             {
                 darkMode ?
-                    <button className={styles.toggleButton} onClick={(e) => handleDarkMode(e)}><h2><span><FontAwesomeIcon id={'poop'} icon="fa-solid fa-sun" /></span>Light Mode</h2></button> :
-                    <button className={styles.toggleButton} onClick={(e) => handleDarkMode(e)}><h2><span><FontAwesomeIcon icon="fa-regular fa-moon" /></span>Dark Mode</h2></button>
+                    <button className={styles.toggleButton} onClick={(e) => handleDarkMode(e)}><span><FontAwesomeIcon id={'poop'} icon="fa-solid fa-sun" /></span>Light Mode</button> :
+                    <button className={styles.toggleButton} onClick={(e) => handleDarkMode(e)}><span><FontAwesomeIcon icon="fa-regular fa-moon" /></span>Dark Mode</button>
             }
         </header>
     )
